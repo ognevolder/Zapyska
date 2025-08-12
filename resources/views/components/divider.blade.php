@@ -1,0 +1,1 @@
+<hr class="w-[25%] border-[0.2rem] border-[#BFBA73] justify-self-center">
