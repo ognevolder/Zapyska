@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('authorship')->nullable()->references('id')->on('authors')->onDelete('cascade')->default(null);
-            $table->string('role')->default('Guest');
+            $table->string('authorship')->nullable()->default(null);
+            $table->string('role')->default('guest');
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ class SessionController
 
         if (! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
-                'username' => 'Sorry, those credentials do not match.'
+                'username' => 'Такого користувача не зареєстровано.'
             ]);
         }
 

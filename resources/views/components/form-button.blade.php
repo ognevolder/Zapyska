@@ -1,1 +1,1 @@
-<button>{{$slot}}</button>
+<button class="cursor-pointer my-[1.6rem] py-[0.8rem] px-[1.6rem] bg-[#025939] text-[2rem] text-[#fff] font-[Raleway] font-medium leading-none">{{$slot}}</button>

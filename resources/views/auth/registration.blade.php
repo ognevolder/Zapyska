@@ -1,34 +1,29 @@
 <x-layout>
-  <div class="flex flex-col gap-[1.2rem] items-center">
-    <x-logo>Записька</x-logo>
-    <x-h3>Реєстрація</x-h3>
-    <form id="regForm" action="/registration" method="POST">
+  <main class="w-full h-full flex flex-col items-center justify-center">
+    <x-form-header>Реєстрація</x-form-header>
+
+    <form id="regForm" action="/registration" method="POST" class="flex flex-col gap-[0.8rem] items-center my-[1.6rem]">
       <!-- CSRF-token -->
       @csrf
 
       <!-- Email input-field -->
-      <x-form-label for="email" form="regForm">Електронна пошта</x-form-label>
-      <x-form-input id="email" type="email" name="email" :value="old('email')"></x-form-input>
-      <x-form-error name="email"></x-form-error>
+      <x-form-input id="email" form="regForm" name="email" type="email" :value="old('email')">Електронна пошта</x-form-input>
 
       <!-- Name input-field -->
-      <x-form-label for="name" form="regForm">Імʼя</x-form-label>
-      <x-form-input id="name" name="name" :value="old('name')"></x-form-input>
-      <x-form-error name="name"></x-form-error>
+      <x-form-input id="name" form="regForm" name="name" :value="old('name')">Імʼя</x-form-input>
 
       <!-- Login input-field -->
-      <x-form-label for="username" form="regForm">Логін</x-form-label>
-      <x-form-input id="username" name="username" :value="old('username')"></x-form-input>
-      <x-form-error name="username"></x-form-error>
+      <x-form-input id="username" form="regForm" name="username" :value="old('username')">Логін</x-form-input>
 
       <!-- Password input-field -->
-      <x-form-label for="password" form="regForm">Пароль</x-form-label>
-      <x-form-input id="password" type="password" name="password"></x-form-input>
-      <x-form-error name="password"></x-form-error>
+      <x-form-input id="password" form="regForm" name="password" type="password">Пароль</x-form-input>
 
       <!-- Submit button -->
       <x-form-button>Зберегти</x-form-button>
     </form>
-    <x-form-link href="/auth">Вхід</x-form-link>
-  </div>
+
+    <footer>
+      <x-form-link href="/auth">Вже маєте обліковий запис? → <span class="text-[#025939] font-medium">Авторизація</span></x-form-link>
+    </footer>
+  </main>
 </x-layout>

@@ -19,8 +19,18 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Defines if user has admin rights
+     *
+     * @return boolean
+     */
     public function isAdmin()
     {
         return $this->role === 'Admin';
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id');
     }
 }

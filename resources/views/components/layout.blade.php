@@ -21,7 +21,7 @@
         @endif
     </head>
 
-    <body class="bg-[#FFFDF7] h-screen w-screen flex items-center justify-center">
+    <body class="bg-[#FFFDF7] h-screen w-screen">
       {{$slot}}
     </body>
 </html>

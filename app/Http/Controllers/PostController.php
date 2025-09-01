@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController
 {
@@ -12,7 +13,10 @@ class PostController
      */
     public function index()
     {
-        return view('posts/index');
+        // Fetch all Posts from DB
+        $posts = Post::with('author')->simplePaginate(6);
+        // Send results to view
+        return view('posts/index', compact('posts'));
     }
 
     /**
@@ -20,7 +24,7 @@ class PostController
      */
     public function create()
     {
-        //
+        return view('posts/create');
     }
 
     /**
@@ -28,15 +32,31 @@ class PostController
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'tag' => 'string|max:16'
+        ]);
+
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'tag' => $request->tag,
+            'author_id' => Auth::id()
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Публікація створена!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('posts/show');
+        // Fetch requested record
+        $post = Post::with('author')->find($id);
+        // Send result to view
+        return view('posts/show', ['post' => $post]);
     }
 
     /**
@@ -44,7 +64,15 @@ class PostController
      */
     public function edit(Post $post)
     {
-        //
+        // Authorisation
+        if ($post->author_id === Auth::id())
+        {
+            return view('posts.edit', ['post' => $post]);
+        }
+        else
+        {
+            return abort(403, 'Доступ заборонено');
+        }
     }
 
     /**
@@ -52,7 +80,27 @@ class PostController
      */
     public function update(Request $request, Post $post)
     {
-        //
+        if (! $request->author_id === Auth::id())
+        {
+            return abort(401, 'Немає прав на виконання операції.');
+        }
+
+        // Validation
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'tag' => 'string|max:16'
+        ]);
+
+        // Updating
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'tag' => $request->tag
+        ]);
+
+        // Redirecting
+        return redirect()->route('profile')->with('success', 'Публікація оновлена!');
     }
 
     /**
@@ -60,6 +108,16 @@ class PostController
      */
     public function destroy(Post $post)
     {
-        //
+        // Security check
+        if (! $post->author_id === Auth::id())
+        {
+            return abort(401, 'Немає прав на виконання операції.');
+        }
+
+        // Delete operation
+        $post->delete();
+
+        // Redirecting
+        return redirect()->route('profile')->with('success', 'Публікація видалена!');
     }
 }

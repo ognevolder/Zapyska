@@ -1,33 +1,13 @@
-<article>
-  <div>
-  <a href="/"><- На головну</a>
-</div>
-  <nav>
-    <a>#ggg</a>
-    <a>#kmks</a>
-    <a>#kssk</a>
+@props(['data'])
+
+<article class="w-[144rem]">
+  <nav class="mb-[1.6rem]">
+    <a class="bg-[#BFBA73] px-[1.2rem] py-[0.4rem] text-[#fff] text-[1.6rem]" href="/posts?tag={{ $data->tag }}">{{ $data->tag}}</a>
   </nav>
-  <h1>Чи мріють андроїди про електричних овець?</h1>
-  <div>
-    <span>Вікторія</span>
-    <span>Головний редактор</span>
-    <span>23/06/2025</span>
-    <span>Share</span>
-    <span>Save</span>
+  <h1 class="text-[3.2rem] text-[#025239] font-[Raleway] font-bold">{{ $data->title }}</h1>
+  <div class="flex gap-[1.6rem] text-[1.6rem] text-[#BFBA73] font-[Raleway] font-normal mb-[1.6rem]">
+    <span>{{ $data->author->name}} | {{ $data->author->authorship}}</span>
+    <span>{{ $data->created_at->format('d.m.Y')}}</span>
   </div>
-</div>
-<x-divider></x-divider>
-<div>
-  <p>
-    Текст-наповнення, короткий огляд тіла посту.
-    Мінімальна кількість рядків - 1, а максимальна - 3.
-    Вирівнювання по лівій стороні.
-    Текст темного кольору та негрубого шрифту ...
-  </p>
-</div>
-<x-divider></x-divider>
-<div>
-  <span>Share</span>
-  <a href="/posts">Інші публікації</a>
-</div>
+  <p class="h-full text-[#025239] text-[2.4rem] font-[Raleway] font-normal">{{ $data->body}}</p>
 </article>

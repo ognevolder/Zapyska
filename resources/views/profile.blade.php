@@ -1,10 +1,8 @@
-@auth
-    <p>Привіт, {{ auth()->user()->name }}!</p>
-@endauth
-<form action="/logout" method="POST">
-    @csrf
-    <button>Logout</button>
-</form>
-@can('view-admin-panel')
-    <a href="{{ route('admin.dashboard') }}">Адмін панель</a>
-@endcan
+<x-layout>
+    <main class="h-screen flex flex-col items-center gap-[1.6rem]">
+        <x-layout-navbar></x-layout-navbar>
+        <x-profile-header></x-profile-header>
+        <x-profile :data="$posts"></x-profile>
+        <x-footer>2025</x-footer>
+    </main>
+</x-layout>

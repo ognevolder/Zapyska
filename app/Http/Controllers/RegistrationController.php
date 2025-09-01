@@ -11,7 +11,7 @@ class RegistrationController
     /**
      * Handle the register-form request.
      */
-    public function create()
+    public function show()
     {
         return view('auth/registration');
     }

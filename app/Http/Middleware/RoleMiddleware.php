@@ -17,11 +17,11 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role): Response
     {
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect()->route('auth.show');
         }
 
-        if (Auth::user()->role !== $role) {
-            abort(403, 'У вас немає доступу.');
+        if ($role && Auth::user()->role !== $role) {
+        abort(403, 'У вас немає доступу.');
         }
 
         return $next($request);
