@@ -1,7 +1,7 @@
-<main class="w-screen flex justify-center">
-  <article class="w-[144rem] flex flex-col gap-[3.2rem]">
-    <h2 class="text-[3.2rem] text-[#025939] font-[Raleway] font-medium leading-none">{{ $slot }}</h2>
-    <form id="postForm" action="/posts/store" method="POST" class="flex flex-col gap-[0.8rem] items-start text-[2rem] text-[#025939] font-[Raleway] font-regular leading-none">
+<main class="w-full">
+  <article class="mx-8">
+    <h2 class="text-2xl text-darkgreen font-display font-medium leading-none">{{ $slot }}</h2>
+    <form id="postForm" action="/posts/store" method="POST" class="flex flex-col my-4 gap-4 items-start text-base text-darkgreen font-display font-normal leading-none">
       <!-- CSRF-token -->
       @csrf
 

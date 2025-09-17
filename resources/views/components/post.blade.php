@@ -1,26 +1,31 @@
 @props(['post'])
-<figure class="px-[4.8rem] py-[3.2rem] bg-[#fff] border border-[#BFBA73] flex flex-col gap-[1.6rem] font-[Raleway] overflow-hidden">
+
+<figure class="px-4 py-4 mx-8 bg-[#fff] border border-lightgreen flex flex-col gap-2 font-display overflow-hidden">
   <!-- Дата + тег -->
-  <div class="flex gap-[0.8rem] text-[1.6rem]">
-    <a href="#"><span class="font-normal text-[#BFBA73]">#{{ $post->tag }}</span></a>
-    <span class="font-light text-[#BFBFBF] font-[Jura]">{{ $post->created_at }}</span>
+  <div class="flex gap-4 text-sm items-center">
+    <a href="#"><span class="font-normal text-lightgreen">#{{ $post->tag }}</span></a>
+    <span class="font-light text-grey">{{ $post->created_at->format('d.m.Y') }}</span>
   </div>
 
+
   <!-- Заголовок і тіло -->
-  <a href="/posts/{{ $post->id }}">
-    <div class="flex flex-col gap-[0.8rem] text-[#262626] overflow-hidden">
-      <h2 class="text-[3.6rem] font-bold leading-[4.2rem] break-words line-clamp-[2]">
+
+  <div class="flex flex-col text-black overflow-hidden">
+    <a href="/posts/{{ $post->id }}">
+      <h2 class="text-2xl font-bold leading-auto break-words line-clamp-[2]">
         {{ $post->title}}
       </h2>
-      <p class="text-[1.8rem] font-normal leading-[2.4rem] break-words line-clamp-[3]">
-        {{ $post->body}}
-      </p>
-    </div>
-  </a>
+    </a>
+
+    <p class="text-base font-normal leading-auto break-words line-clamp-[3]">
+      {{ $post->body}}
+    </p>
+  </div>
+
 
   <!-- Автор -->
-  <div class="flex gap-[0.8rem] text-[1.8rem]">
-    <a href="/authors/{{ $post->author->username}}"><span class="font-semibold text-[#025939]">{{ $post->author->name}}</span></a>
-    <span class="font-light text-[#BFBFBF]">{{ $post->author->authorship}}</span>
+  <div class="flex gap-2 text-base">
+    <a href="/authors/{{ $post->author->username}}"><span class="font-semibold text-darkgreen">{{ $post->author->name}}</span></a>
+    <span class="font-light text-grey">{{ $post->author->authorship}}</span>
   </div>
 </figure>

@@ -1,7 +1,6 @@
 <x-layout>
-    <main class="h-screen flex flex-col justify-between">
-        <x-layout-navbar></x-layout-navbar>
-        <x-hero></x-hero>
-        <x-footer>2025</x-footer>
+    <x-layout-navbar></x-layout-navbar>
+    <main class="max-h-full max-w-full">
+        <x-layout-hero></x-layout-hero>
     </main>
 </x-layout>

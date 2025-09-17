@@ -1,2 +1,3 @@
 @props(['href' => ''])
-<a href="{{ $href }}" class="text-[1.6rem] text-[#BFBA73] font-[Raleway]">{{ $slot }}</a>
+
+<a href="{{ $href }}" {{ $attributes->merge(['class' => "text-xl text-lightgreen font-display"])}}>{{ $slot }}</a>

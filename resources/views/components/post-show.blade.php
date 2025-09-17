@@ -1,13 +1,15 @@
 @props(['data'])
 
-<article class="w-[144rem]">
-  <nav class="mb-[1.6rem]">
-    <a class="bg-[#BFBA73] px-[1.2rem] py-[0.4rem] text-[#fff] text-[1.6rem]" href="/posts?tag={{ $data->tag }}">{{ $data->tag}}</a>
-  </nav>
-  <h1 class="text-[3.2rem] text-[#025239] font-[Raleway] font-bold">{{ $data->title }}</h1>
-  <div class="flex gap-[1.6rem] text-[1.6rem] text-[#BFBA73] font-[Raleway] font-normal mb-[1.6rem]">
-    <span>{{ $data->author->name}} | {{ $data->author->authorship}}</span>
-    <span>{{ $data->created_at->format('d.m.Y')}}</span>
+<article class="w-full">
+  <div class="mx-8 my-8 p-4 bg-[#fff] border-[0.5px] border-lightgreen">
+    <nav>
+      <a class="bg-lightgreen px-2 py-1 text-white text-base" href="/posts?tag={{ $data->tag }}">{{ $data->tag}}</a>
+    </nav>
+    <div class="flex gap-4 py-2 text-xl text-grey font-display font-normal">
+      <span>{{ $data->author->name}} | {{ $data->author->authorship}}</span>
+      <span>{{ $data->created_at->format('d.m.Y')}}</span>
+    </div>
+    <h1 class="text-4xl mt-4 text-darkgreen font-display font-bold">{{ $data->title }}</h1>
+    <p class="text-darkgreen text-xl font-display font-normal">{{ $data->body}}</p>
   </div>
-  <p class="h-full text-[#025239] text-[2.4rem] font-[Raleway] font-normal">{{ $data->body}}</p>
 </article>

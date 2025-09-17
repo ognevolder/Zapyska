@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
-    <nav>
-        <ul class="pagination flex gap-[1.6rem] text-[1.6rem] text-[#bfba73] font-[Raleway]">
+    <nav class="my-4">
+        <ul class="pagination flex gap-8 text-xl text-lightgreen font-display">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -8,7 +8,7 @@
                 </li>
             @else
                 <li>
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" class="py-[0.8rem] px-[1.6rem] hover:text-[#025239]">&lsaquo; Попередня</a>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" class="hover:text-[#025239]">&lsaquo; Попередня</a>
                 </li>
             @endif
 

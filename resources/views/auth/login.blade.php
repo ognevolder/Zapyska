@@ -1,9 +1,9 @@
 <x-layout>
-  <main class="w-full h-full flex flex-col items-center justify-center">
-
+  <main class="w-full h-full flex justify-center items-center">
+    <section class="max-md:mx-8 w-full flex flex-col justify-center items-center gap-16">
       <x-form-header>Авторизація</x-form-header>
 
-      <form id="loginForm" action="/auth" method="POST" class="flex flex-col gap-[0.8rem] items-center my-[1.6rem]">
+      <form id="loginForm" action="/auth" method="POST" class="w-[90%] md:w-[35%] 2xl:w-96 flex flex-col gap-4 items-center">
         <!-- CSRF-token -->
         @csrf
 
@@ -17,9 +17,9 @@
         <x-form-button>Вхід</x-form-button>
       </form>
 
-      <footer>
-        <x-form-link href="/registration">Не зареєстровані? → <span class="text-[#025939] font-medium">Реєстрація</span></x-form-link>
+      <footer class="w-full text-center">
+        <x-form-link href="/registration">Не зареєстровані? → <span class="text-darkgreen font-medium">Реєстрація</span></x-form-link>
       </footer>
-
+    </section>
   </main>
 </x-layout>
