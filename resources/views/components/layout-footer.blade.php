@@ -1,23 +1,18 @@
-<footer class="w-full font-display font-light text-sm text-darkgreen">
-  <nav class="mx-8 py-4 flex flex-col gap-4 border-y-[0.5px] border-lightgreen">
-    <div>
-      <h3 class="font-bold">Навігація</h3>
-      <ul class="grid grid-cols-2">
-        <li><a href="/">Головна</a></li>
-        <li><a href="/posts">Публікації</a></li>
-        <li><a href="/art">Творчість</a></li>
-        <li><a href="/profile">Профіль</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-bold">Розробка</h3>
-      <ul class="grid grid-cols-2">
-        <li><a href="https://ognevolder.pro/">Portfolio</a></li>
-        <li><a href="https://ognevolder.pro/">ognevolder.pro</a></li>
-        <li><a href="https://ognevolder.pro/">ognevolder.pro</a></li>
-        <li><a href="https://www.instagram.com/web.ognevolder">Instagram</a></li>
-      </ul>
-    </div>
+<footer class="w-full font-display font-light text-sm md:text-base text-darkgreen">
+  <nav class="mx-8 my-4 py-4 border-y-[0.5px] border-lightgreen flex flex-col gap-2">
+    <ul class="flex flex-col items-center">
+      <h3 class="font-bold">Розробка:</h3>
+      <p class="font-normal">PHP 8, Laravel, MySQL, Vue</p>
+    </ul>
+    <ul class="flex flex-col items-center">
+      <h3 class="font-bold">Контакти:</h3>
+      <ul class="flex gap-2">
+        <a href="https://ognevolder.pro/">Portfolio</a>
+        <a href="https://github.com/ognevolder">GitHub</a>
+        <a href="https://www.linkedin.com/in/yurii-timoshenkov-8231ab37b/">LinkedIn</a>
+        <a href="https://www.instagram.com/web.ognevolder">Instagram</a>
+      <ul>
+    </ul>
   </nav>
   <div class="w-full">
     <nav class="mx-8 py-2 flex flex-col items-center">

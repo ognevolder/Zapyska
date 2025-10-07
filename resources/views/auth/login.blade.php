@@ -1,25 +1,36 @@
 <x-layout>
-  <main class="w-full h-full flex justify-center items-center">
-    <section class="max-md:mx-8 w-full flex flex-col justify-center items-center gap-16">
-      <x-form-header>Авторизація</x-form-header>
+  <main class="w-full h-full grid place-items-center">
+    <form id="loginForm" action="/auth" method="POST" class="w-full">
+      <!-- CSRF-token -->
+      @csrf
+      <ul class="w-full flex flex-col gap-16">
+        <x-form-header>Авторизація</x-form-header>
+        <ul class="mx-8 flex flex-col gap-8 font-display">
+          <!-- Email input-field -->
+          <x-form-input id="email" form="loginForm" name="email" :value="old('email')">Електронна пошта</x-form-input>
 
-      <form id="loginForm" action="/auth" method="POST" class="w-[90%] md:w-[35%] 2xl:w-96 flex flex-col gap-4 items-center">
-        <!-- CSRF-token -->
-        @csrf
+          <!-- Password input-field -->
+          <x-form-input id="password" form="loginForm" name="password" type="password">Пароль</x-form-input>
 
-        <!-- Login input-field -->
-        <x-form-input id="username" form="loginForm" name="username" :value="old('username')">Логін</x-form-input>
+          <!-- Errors -->
+          @error('login')
+            <p class="text-sm text-error font-semibold">{{ $message }}</p>
+          @enderror
 
-        <!-- Password input-field -->
-        <x-form-input id="password" form="loginForm" name="password" type="password">Пароль</x-form-input>
+          @error('block')
+            <p class="text-sm text-error font-semibold">{{ $message }}</p>
+          @enderror
 
-        <!-- Submit button -->
-        <x-form-button>Вхід</x-form-button>
-      </form>
+          <ul class="flex flex-col gap-3">
+            <!-- Submit button -->
+            <x-form-button>Вхід</x-form-button>
 
-      <footer class="w-full text-center">
-        <x-form-link href="/registration">Не зареєстровані? → <span class="text-darkgreen font-medium">Реєстрація</span></x-form-link>
-      </footer>
-    </section>
+            <!-- Password reset -->
+            <a href="#" class="text-center font-medium text-lightgreen">Відновити пароль</a>
+          </ul>
+          <x-form-link href="/registration" class="text-center">Не зареєстровані? → <span class="text-darkgreen font-medium">Реєстрація</span></x-form-link>
+        </ul>
+      </ul>
+    </form>
   </main>
 </x-layout>

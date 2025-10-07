@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Mail\PostPublished;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PostController
 {
@@ -15,7 +17,7 @@ class PostController
     public function index()
     {
         // Fetch all Posts from DB
-        $posts = Post::with('author')->simplePaginate(6);
+        $posts = Post::with('author')->latest()->simplePaginate(6);
         // Send results to view
         return view('posts/index', compact('posts'));
     }
@@ -39,12 +41,15 @@ class PostController
             'tag' => 'string|max:16'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'body' => $request->body,
             'tag' => $request->tag,
             'author_id' => Auth::id()
         ]);
+
+        // Mailing
+        Mail::to($post->author)->send(new PostPublished($post));
 
         return redirect()->route('posts.index')->with('success', 'Публікація створена!');
     }

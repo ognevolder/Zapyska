@@ -1,3 +1,3 @@
 @props(['href' => ''])
 
-<a href="{{ $href }}" {{ $attributes->merge(['class' => "text-xl text-lightgreen font-display"])}}>{{ $slot }}</a>
+<a href="{{ $href }}" {{ $attributes->merge(['class' => ""])}}>{{ $slot }}</a>

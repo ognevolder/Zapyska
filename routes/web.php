@@ -1,32 +1,20 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\NavigationController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminController;
 
 // Welcome page (index)
-Route::get('/', [NavigationController::class, 'index']);
+Route::get('/', function() {
+    return view('index');
+})->name('index');
 
-// Profile page
-Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
+// Profile page (profile)
+Route::get('/profile', [ProfileController::class, 'profile'])->middleware('auth')->name('profile');
+// -| AJAX
+Route::post('/profile/info', [ProfileController::class, 'info'])->middleware('auth')->name('profile.info');
 
-// Auth
-Route::middleware('guest')->group(function()
-{
-    // Registartion
-    Route::get('/registration', [RegistrationController::class, 'show'])->name('registration.show');
-    Route::post('/registration', [RegistrationController::class, 'store'])->name('registration.store');
-    // Authorisation
-    Route::get('/auth', [SessionController::class, 'create'])->name('auth.show');
-    Route::post('/auth', [SessionController::class, 'store'])->name('auth.store');
-});
-
-Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 // Admin page
 Route::middleware(['auth', 'role:Admin'])->group(function()
@@ -47,3 +35,7 @@ Route::middleware('auth')->group(function ()
 });
 // Show single post (show)
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+// All art (index)
+// Route::get('/art', [ArtController::class, 'index'])->name('art.index');
+require __DIR__.'/auth.php';
