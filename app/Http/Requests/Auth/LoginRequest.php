@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey(), 480);
 
             throw ValidationException::withMessages([
-                'login' => 'Вказані дані не співпадають. Залишилося спроб: ' . RateLimiter::remaining($this->throttleKey(), 5)
+                'login' => 'Вказані дані не співпадають.' . '<br>' . 'Залишилося спроб: ' . RateLimiter::remaining($this->throttleKey(), 5)
             ]);
         }
 

@@ -1,15 +1,20 @@
-@props(['form', 'id', 'type' => 'text', 'name', 'value' => ''])
+@props(['id', 'type' => 'text', 'name', 'value' => ''])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col text-sm text-lightgreen font-normal font-display'])}}>
-  <label for="{{ $id }}" form="{{ $form }}">{{$slot}}</label>
+<div class="relative w-full">
   <input
-    id="{{ $id }}"
-    type="{{ $type }}"
-    name="{{ $name }}"
-    value="{{ $value }}"
-    class="p-1 border-b border-b-lightgreen text-base text-black font-semibold bg-transparent
-          focus:ring-2 focus:ring-darkgreen transition"
-  >
+       id="{{ $id }}"
+       type="{{ $type }}"
+       name="{{ $name }}"
+       class="w-full peer border-b-1 border-lightgreen bg-transparent px-1 pt-8 pb-2 text-black text-base lg:text-xl font-semibold
+                focus:border-darkgreen focus:outline-none focus:bg-transparent"
+         placeholder=" "
+       />
+  <label for="{{ $name }}"
+         class="absolute left-0 top-2 text-lightgreen text-base
+                transition-all peer-placeholder-shown:top-8 peer-placeholder-shown:text-base
+                peer-placeholder-shown:text-lightgreen peer-focus:top-2 peer-focus:text-base peer-focus:text-darkgreen peer-focus:bg-transparent">
+    {{ $slot }}
+  </label>
   @error($name)
     <p class="text-sm text-error font-semibold">{{ $message }}</p>
   @enderror

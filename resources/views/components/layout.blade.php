@@ -22,7 +22,7 @@
         @endif
     </head>
 
-    <body class="bg-white min-h-screen font-display">
+    <body class="bg-white w-screen h-screen font-display">
       {{$slot}}
     </body>
 </html>
