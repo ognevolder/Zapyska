@@ -8,7 +8,7 @@
       <!-- Body -->
       <div class="mx-8 flex flex-col gap-3">
         <!-- Email input-field -->
-        <x-form-input id="email" name="email" :value="old('email')">Електронна пошта</x-form-input>
+        <x-form-input id="email" name="email" type="email" :value="old('email')">Електронна пошта</x-form-input>
 
         <!-- Password input-field -->
         <x-form-input id="password" name="password" type="password">Пароль</x-form-input>
@@ -29,7 +29,7 @@
         <x-form-button>Вхід</x-form-button>
 
         <!-- Password reset -->
-        <a href="#" class="text-center font-medium text-lightgreen">Відновити пароль</a>
+        <a href="/forgot-password" class="text-center font-medium text-lightgreen">Відновити пароль</a>
       </div>
       <!-- Redirect -->
       <div class="mx-8 my-12 text-center">
