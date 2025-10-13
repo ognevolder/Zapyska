@@ -29,11 +29,11 @@
         <x-form-button>Вхід</x-form-button>
 
         <!-- Password reset -->
-        <a href="/forgot-password" class="text-center font-medium text-lightgreen">Відновити пароль</a>
+        <a href="/forgot-password" class="text-center font-medium text-lightgreen hover:text-darkgreen">Відновити пароль</a>
       </div>
       <!-- Redirect -->
-      <div class="mx-8 my-12 text-center">
-        <x-form-link href="/registration">Не зареєстровані? → <span class="text-darkgreen font-medium">Реєстрація</span></x-form-link>
+      <div class="mx-8 mt-12 text-center">
+        <x-form-link href="/registration">Не зареєстровані? → <span class="text-darkgreen font-medium hover:underline">Реєстрація</span></x-form-link>
       </div>
     </form>
   </main>
