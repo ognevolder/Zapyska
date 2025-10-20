@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,14 +21,24 @@ class ProfileController
      *
      * @return void
      */
-    public function info()
+    public function bio()
     {
         $user = Auth::user();
+        $html = view('components.profile-bio', compact('user'))->render();
 
-        return response()->json([
-            'name' => $user->name,
-            'email' => $user->email,
-            'registered' => $user->created_at->format('d.m.Y')
-        ]);
+        return response()->json(['html' => $html]);
+    }
+
+    /**
+     * User posts
+     *
+     * @return void
+     */
+    public function posts()
+    {
+        $posts = Post::with('author')->where('author_id', Auth::id())->latest()->get();
+        $html = view('components.profile-posts', compact('posts'))->render();
+
+        return response()->json(['html' => $html]);
     }
 }

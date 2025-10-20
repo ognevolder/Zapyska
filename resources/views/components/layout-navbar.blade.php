@@ -1,4 +1,4 @@
-<header x-data="{ menuOpen: false, profileOpen: false }" class="w-full bg-[#FFF] border-b-lightgreen border-b-[0.5px]">
+<header x-data="{ menuOpen: false, profileOpen: false }" class="w-full bg-[#FFF] border-b-lightgreen border-b-[0.5px] xl:flex xl:justify-center">
 
   <!-- MOBILE -->
   <nav class="py-4 mx-4 md:px-6 flex items-center justify-between lg:hidden">
@@ -90,7 +90,7 @@
   </div>
 
   <!-- AFTER 768px -->
-  <nav class="max-lg:hidden py-4 xl:py-5 px-6 2xl:w-[1440px] border-b-lightgreen flex justify-between items-center">
+  <nav class="max-lg:hidden py-4 xl:py-5 w-full 2xl:w-[1440px] border-b-lightgreen flex justify-between items-center">
     <div>
       <a href="/" class="text-3xl xl:text-4xl text-darkgreen font-accent font-bold">Записька</a>
     </div>

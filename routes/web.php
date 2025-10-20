@@ -13,7 +13,8 @@ Route::get('/', function() {
 // Profile page (profile)
 Route::get('/profile', [ProfileController::class, 'profile'])->middleware('auth')->name('profile');
 // -| AJAX
-Route::post('/profile/info', [ProfileController::class, 'info'])->middleware('auth')->name('profile.info');
+Route::post('/profile/bio', [ProfileController::class, 'bio'])->middleware('auth')->name('profile.bio');
+Route::post('/profile/posts', [ProfileController::class, 'posts'])->middleware('auth')->name('profile.posts');
 
 
 // Admin page
