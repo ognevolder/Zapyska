@@ -1,4 +1,6 @@
-
+<x-layout>
+  <x-layout-navbar></x-layout-navbar>
+  <x-layout-link href="/profile">Назад</x-layout-link>
   <div class="mx-4 bg-[#fff]">
     <a href="/profile" class="lg:hidden">Назад</a>
     <!-- Name -->
@@ -37,7 +39,7 @@
     <!-- Authorship -->
     <p><strong>Автор:</strong> {{ $user->authorship ? '+' : '-' }}</p>
   </div>
-
+</x-layout>
 
 
 

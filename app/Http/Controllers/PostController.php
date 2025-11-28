@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserView;
+use App\Http\Requests\SearchPostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Mail\PostPublished;
 use App\Models\Post;
@@ -18,6 +20,7 @@ class PostController
     {
         // Fetch all Posts from DB
         $posts = Post::with('author')->latest()->simplePaginate(6);
+        event(new UserView(request()));
         // Send results to view
         return view('posts/index', compact('posts'));
     }
@@ -125,5 +128,26 @@ class PostController
 
         // Redirecting
         return redirect()->route('profile')->with('success', 'Публікація видалена!');
+    }
+
+    /**
+     * Implements a live-search
+     */
+    public function search(SearchPostRequest $request)
+    {
+        $user = Auth::user();
+        if (! $user) {
+            return response()->json(['error' => 'Ви не авторизовані для даного запиту'], 401);
+        }
+        $query = $request->input('query');
+
+        // Знаходимо пости користувача, де збігається назва
+        $posts = Post::where('author_id', $user->id)
+            ->where('title', 'like', '%' . $query . '%')
+            ->limit(5)
+            ->get(['id', 'title']); // беремо лише потрібні поля
+
+        // Повертаємо JSON для JS
+        return response()->json($posts);
     }
 }

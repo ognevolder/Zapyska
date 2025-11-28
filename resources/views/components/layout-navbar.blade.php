@@ -41,9 +41,8 @@
     x-transition:leave-end="max-h-0 opacity-0"
     class="bg-[#fff] overflow-hidden flex flex-col gap-8 justify-center items-center font-display font-normal text-lightgreen text-2xl">
     <nav class="h-full flex flex-col gap-2 my-8 justify-center items-center">
-      <x-mobile-nav-link href="/">Головна</x-mobile-nav-link>
       <x-mobile-nav-link href="/posts">Публікації</x-mobile-nav-link>
-      <x-mobile-nav-link href="/">Творчість</x-mobile-nav-link>
+      <x-mobile-nav-link href="/writings">Творчість</x-mobile-nav-link>
     </nav>
   </div>
 
@@ -96,9 +95,8 @@
     </div>
 
     <div class="flex gap-4 items-center text-2xl xl:text-3xl">
-      <x-nav-link href="/">Головна</x-nav-link>
       <x-nav-link href="/posts">Публікації</x-nav-link>
-      <x-nav-link href="/workshop">Творчість</x-nav-link>
+      <x-nav-link href="/writings">Творчість</x-nav-link>
 
       @guest
       <x-nav-link href="/auth" class="text-white py-2 px-4 bg-darkgreen">Вхід</x-nav-link>

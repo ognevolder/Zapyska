@@ -14,15 +14,9 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'email',
         'name',
-        'username',
+        'email',
         'password'
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     protected function casts(): array
@@ -34,30 +28,59 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Defines if user has admin rights
+     * Визначає чи має користувач права адміністратора. Defines if user has admin rights
      *
      * @return boolean
      */
     public function isAdmin()
     {
-        return $this->role === 'Admin';
+        return $this->role === 'admin';
     }
 
+    /**
+     * Визначає чи має користувач права редактора. Defines if user has editor rights
+     *
+     * @return boolean
+     */
+    public function isEditor()
+    {
+        return $this->role === 'editor';
+    }
+
+    /**
+     * Повертає всі публікації користувача. Return all user's posts
+     *
+     * @return void
+     */
     public function posts()
     {
         return $this->hasMany(Post::class, 'author_id');
     }
 
+    /**
+     * Перевірка верифікації електронної пошти. Check the email verification
+     */
     public function hasVerifiedEmail()
     {
         return $this->email_verified_at;
     }
 
+    /**
+     * Надсилання листа для верифікації електронної пошти. Email verification letter
+     *
+     * @return void
+     */
     public function sendEmailVerificationNotification()
     {
         $this->notify(new EmailVerification());
     }
 
+    /**
+     * Надсилання листа з посиланням для зміни паролю. Reset password link
+     *
+     * @param string $token
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetLink($token));

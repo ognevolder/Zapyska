@@ -2,23 +2,23 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class NewRegistration
+class UserView
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $viewUrl;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct(Request $request)
     {
-        $this->user = $user;
+        $this->viewUrl = $request->getRequestUri();
     }
 
     /**

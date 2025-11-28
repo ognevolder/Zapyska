@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController
@@ -13,32 +13,40 @@ class ProfileController
      */
     public function profile()
     {
-        return view('profile');
+        return view('profile.profile');
     }
 
     /**
      * User information
      *
-     * @return void
      */
-    public function bio()
+    public function bio(Request $request)
     {
         $user = Auth::user();
-        $html = view('components.profile-bio', compact('user'))->render();
 
-        return response()->json(['html' => $html]);
+        if ($request->ajax())
+        {
+            $html = view('components.profile-bio', ['user' => $user])->render();
+            return response()->json(['html' => $html]);
+        }
+
+        return view('profile.profile-bio', ['user' => $user]);
     }
 
     /**
      * User posts
      *
-     * @return void
      */
-    public function posts()
+    public function posts(Request $request)
     {
         $posts = Post::with('author')->where('author_id', Auth::id())->latest()->get();
-        $html = view('components.profile-posts', compact('posts'))->render();
 
-        return response()->json(['html' => $html]);
+        if ($request->ajax())
+        {
+            $html = view('components.profile-posts', ['posts' => $posts])->render();
+            return response()->json(['html' => $html]);
+        }
+
+        return view('profile.profile-posts', ['posts' => $posts]);
     }
 }

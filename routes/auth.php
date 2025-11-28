@@ -17,7 +17,7 @@ Route::middleware('guest')->group(function()
   Route::post('/registration', [RegistrationController::class, 'store'])->middleware('throttle:4,1');
 
   // Authorisation
-  Route::get('/auth', [SessionController::class, 'create'])->name('login');
+  Route::get('/auth', [SessionController::class, 'create'])->name('auth.show');
   Route::post('/auth', [SessionController::class, 'store']);
 
   // Password reset
