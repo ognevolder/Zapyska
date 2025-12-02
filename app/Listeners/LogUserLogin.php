@@ -4,8 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserLogin;
 use App\Models\ActivityLog;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+
 
 class LogUserLogin
 {

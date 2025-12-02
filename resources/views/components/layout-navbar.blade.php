@@ -90,22 +90,21 @@
 
   <!-- AFTER 768px -->
   <nav class="max-lg:hidden py-4 xl:py-5 w-full 2xl:w-[1440px] border-b-lightgreen flex justify-between items-center">
-    <div>
-      <a href="/" class="text-3xl xl:text-4xl text-darkgreen font-accent font-bold">Записька</a>
+    <div class="flex items-center gap-2 text-xl text-darkgreen font-display font-normal">
+      <a href="/" class="text-3xl xl:text-4xl font-accent font-bold">Записька</a>
+      <h2>
+        @switch(true)
+          @case(Route::is('posts.index'))
+          | Публікації
+          @break
+
+          @default
+        @endswitch
+      </h2>
     </div>
 
-    <div class="flex gap-4 items-center text-2xl xl:text-3xl">
-      <x-nav-link href="/posts">Публікації</x-nav-link>
-      <x-nav-link href="/writings">Творчість</x-nav-link>
-
-      @guest
-      <x-nav-link href="/auth" class="text-white py-2 px-4 bg-darkgreen">Вхід</x-nav-link>
-      @endguest
-
-      @auth
-      <x-nav-link href="/profile" class="text-white py-2 px-4 bg-darkgreen">Профіль</x-nav-link>
-      @endauth
-
+    <div>
+      <x-nav-auth></x-nav-auth>
     </div>
   </nav>
 </header>

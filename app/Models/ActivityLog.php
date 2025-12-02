@@ -6,9 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLog extends Model
 {
-    protected $fillable = ['event', 'user_id', 'data'];
-
-    protected $casts = [
-        'data' => 'array'
-    ];
+    protected $fillable = ['event', 'user_id'];
 }

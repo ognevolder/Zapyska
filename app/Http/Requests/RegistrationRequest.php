@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +23,8 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8']
         ];
     }
@@ -35,10 +34,6 @@ class RegistrationRequest extends FormRequest
         return [
             'name.required' => 'Поле "Ім’я" обов’язкове.',
             'name.max' => 'Ім’я не може перевищувати 255 символів.',
-
-            'username.required' => 'Поле "Логін" обов’язкове.',
-            'username.max' => 'Логін не може перевищувати 255 символів.',
-            'username.unique' => 'Користувач з таким логін-імʼям вже зареєстрований.',
 
             'email.required' => 'Вкажіть вашу електронну пошту.',
             'email.email' => 'Введіть коректну email-адресу.',

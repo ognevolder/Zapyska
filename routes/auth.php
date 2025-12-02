@@ -12,12 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function()
 {
-  // New user registration
-  Route::get('/registration', [RegistrationController::class, 'create'])->name('registration');
-  Route::post('/registration', [RegistrationController::class, 'store'])->middleware('throttle:4,1');
-
   // Authorisation
-  Route::get('/auth', [SessionController::class, 'create'])->name('auth.show');
+  Route::get('/auth', [SessionController::class, 'create'])->name('auth');
   Route::post('/auth', [SessionController::class, 'store']);
 
   // Password reset

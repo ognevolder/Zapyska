@@ -1,18 +1,12 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/registration.php';
 require __DIR__.'/auth.php';
 require __DIR__.'/post.php';
-require __DIR__.'/writing.php';
 require __DIR__.'/profile.php';
 
 // Welcome page (index)
-Route::get('/', [HomeController::class, 'index'])->name('index');
-
-// Admin page
-// Route::middleware(['auth', 'role:Admin'])->group(function()
-// {
-//     Route::get('/admin', AdminController::class)->name('admin.dashboard');
-// });
+Route::get('/', [IndexController::class, 'index'])->name('index');

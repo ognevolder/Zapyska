@@ -3,30 +3,22 @@
 namespace App\Events;
 
 use App\Models\Guest;
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserView
+class Visit
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $path;
     public $guest;
-    public $user;
-    public $post;
     /**
      * Create a new event instance.
      */
-    public function __construct(Guest $guest, User $user, Post $post)
+    public function __construct(Guest $guest)
     {
-        $this->path = request()->getRequestUri();
-        $this->guest = $guest;
-        $this->user = $user;
-        $this->post = $post;
+        return $this->guest = $guest;
     }
 
     /**

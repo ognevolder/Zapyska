@@ -1,0 +1,1 @@
+<x-nav-link href="{{ auth()->check() ? route('profile') : route('auth') }}" class="text-darkgreen py-1 px-3 border border-darkgreen">{{ auth()->check() ? 'Профіль' : 'Вхід' }}</x-nav-link>

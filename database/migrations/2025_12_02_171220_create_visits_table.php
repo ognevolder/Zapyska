@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activity_logs', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->string('event');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('place');
+            $table->unsignedBigInteger('guest_id')->references('id')->on('guests')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activity_logs');
+        Schema::dropIfExists('visits');
     }
 };
