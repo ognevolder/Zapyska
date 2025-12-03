@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Events\Visit;
 use App\Models\Guest;
 
-use function PHPUnit\Framework\isEmpty;
-
 class IndexController
 {
     /**

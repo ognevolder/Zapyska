@@ -6,7 +6,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Contracts\View\View;
 use App\Events\NewRegistration;
 use App\Events\UserLogin;
+use App\Events\UserNotification;
 use App\Http\Requests\RegistrationRequest;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,10 @@ class RegistrationController extends Controller
 
         // Запуск події авторизації. Create an event
         event(new UserLogin(Auth::user()));
+
+        // Створення події Сповіщення. Create Notification event
+        $message = Message::where('type', 'welcome')->first();
+        event(new UserNotification($message));
 
         // Перенаправлення. Redirection
         return redirect()->route('profile')->with('success', 'Реєстрація успішна!');
