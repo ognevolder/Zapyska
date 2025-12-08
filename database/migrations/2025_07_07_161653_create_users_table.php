@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable()->default(null);
             $table->string('password');
-            $table->string('role')->nullable();
+            $table->boolean('blocked')->default(false);
             $table->timestamps();
         });
 

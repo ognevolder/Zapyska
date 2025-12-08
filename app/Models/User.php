@@ -28,26 +28,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Визначає чи має користувач права адміністратора. Defines if user has admin rights
-     *
-     * @return boolean
-     */
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
-
-    /**
-     * Визначає чи має користувач права редактора. Defines if user has editor rights
-     *
-     * @return boolean
-     */
-    public function isEditor()
-    {
-        return $this->role === 'editor';
-    }
-
-    /**
      * Повертає всі публікації користувача. Return all user's posts
      *
      * @return void

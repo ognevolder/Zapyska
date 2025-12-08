@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('visits', function (Blueprint $table) {
+        Schema::create('keys', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('guest_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->string('key')->unique();
+            $table->boolean('used')->default(false);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visits');
+        Schema::dropIfExists('keys');
     }
 };

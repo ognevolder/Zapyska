@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
             $table->string('session_id')->unique();
+            $table->string('guest_name')->unique();
             $table->timestamps();
         });
     }

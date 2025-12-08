@@ -1,5 +1,7 @@
 <?php
 
+// Головний маршрут вхідної точки.
+
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 

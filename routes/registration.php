@@ -1,5 +1,7 @@
 <?php
 
+// Модуль (Реєстрація). Містить маршрути для форми реєстрації.
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 

@@ -1,5 +1,7 @@
 <?php
 
+// Модель (Запис активності). Реєструє в БД запис про дію користувачів у системі.
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

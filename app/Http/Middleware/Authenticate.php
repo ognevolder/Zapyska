@@ -8,6 +8,9 @@ class Authenticate extends Middleware
 {
     protected function redirectTo($request)
     {
-        return route('auth.show');
-    }
+        if ($request->routeIs('admin.*')) {
+            return route('admin.login');
+        }
+
+        return route('auth');    }
 }

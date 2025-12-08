@@ -1,5 +1,7 @@
 <?php
 
+// Подія (Повідомлення). Системне сповіщення для користувача.
+
 namespace App\Events;
 
 use App\Models\Message;

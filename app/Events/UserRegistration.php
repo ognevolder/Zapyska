@@ -1,5 +1,7 @@
 <?php
 
+// Подія (Реєстрація). Записується в журнал подій для контролю системи.
+
 namespace App\Events;
 
 use App\Models\User;
@@ -8,7 +10,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewRegistration
+class UserRegistration
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

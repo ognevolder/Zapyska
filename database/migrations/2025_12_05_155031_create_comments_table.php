@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('user_id')->references('id')->on('users')->onDelete('cascade')->nullable()->default(null);
             $table->unsignedBigInteger('guest_id')->references('id')->on('guests')->onDelete('cascade')->nullable()->default(null);
+            $table->text('text');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('comments');
     }
 };

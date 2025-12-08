@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\NewRegistration;
+use App\Events\UserRegistration;
 use App\Listeners\LogUserRegistration;
 use Illuminate\Support\ServiceProvider;
 
@@ -10,8 +10,8 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         // Реєстрація нового користувача
-        NewRegistration::class => [
-            // Надсилання листа
+        UserRegistration::class => [
+            // Надсилання сповіщення
             // Логування
             LogUserRegistration::class
         ],

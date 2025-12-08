@@ -24,7 +24,6 @@ class LogVisit
 
         if (!$visit) {
             GuestVisit::create([
-                'place' => request()->getRequestUri(),
                 'guest_id' => $event->guest->id
             ]);
         }

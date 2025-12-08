@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\NewRegistration;
+use App\Events\UserRegistration;
 use App\Models\ActivityLog;
 
 class LogUserRegistration
@@ -18,7 +18,7 @@ class LogUserRegistration
     /**
      * Handle the event.
      */
-    public function handle(NewRegistration $event): void
+    public function handle(UserRegistration $event): void
     {
         ActivityLog::create([
             'event' => 'Реєстрація',
