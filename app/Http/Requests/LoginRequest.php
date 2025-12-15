@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,12 +11,19 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    protected string $guard = 'web';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function setGuard(string $guard): self
+    {
+        $this->guard = $guard;
+        return $this;
     }
 
     /**
@@ -51,7 +58,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard($this->guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey(), 480);
 
             throw ValidationException::withMessages([
@@ -85,6 +92,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::lower($this->guard.'|'.$this->string('email').'|'.$this->ip());
     }
 }

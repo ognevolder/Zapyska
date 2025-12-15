@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\LoginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Admin\RegistrationRequest;
 use App\Models\Admin;
 use App\Models\Key;
@@ -23,6 +23,16 @@ class AdminController
     }
 
     /**
+     * Форма для авторизації адміністратора. Login-form view.
+     *
+     * @return View
+     */
+    public function show(): View
+    {
+        return view('admin.show');
+    }
+
+    /**
      * Створення нового адміністратора в базі. Store a new admin.
      *
      * @param RegistrationRequest $request
@@ -30,12 +40,11 @@ class AdminController
      */
     public function store(RegistrationRequest $request)
     {
+        // Валідація
+        $attributes = $request->validated();
+
         // Створення адміна.
-        $admin = Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        $admin = Admin::create($attributes);
 
         // Деактивація ключа.
         $key = Key::where('key', $request->key)->first();
@@ -47,25 +56,38 @@ class AdminController
         // Подія (Адмін - Реєстрація).
 
         // Авторизація.
-        // Auth::guard('admin')->login($admin);
+        Auth::guard('admin')->login($admin);
 
         // Переадресація на Admin Dashboard.
-
-
-
-
+        return redirect()->intended(route('admin.profile', absolute: false));
     }
 
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginRequest $request)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
+        $guard = $this->resolveGuardFromRoute(); // admin / editor / web
 
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        $request->setGuard($guard)->authenticate();
+
+        return redirect()->route(config("auth.dashboard_routes.$guard"));
     }
 
     public function index(): View
     {
         return view('admin.index');
+    }
+
+    protected function resolveGuardFromRoute(): string
+    {
+        return match (true) {
+            request()->routeIs('admin.*')  => 'admin',
+            request()->routeIs('editor.*') => 'editor',
+            default                        => 'web',
+        };
+    }
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.auth');
     }
 }

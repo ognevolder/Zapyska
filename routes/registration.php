@@ -1,10 +1,16 @@
 <?php
 
-// Модуль (Реєстрація). Містить маршрути для форми реєстрації.
+/**
+ * ----------------------------------------------------------
+ * Модуль [Реєстрація]
+ * ----------------------------------------------------------
+ */
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 
+
+// Звичайний користувач. [Web].
 Route::middleware('guest')->group(function() {
   // Виклик форми реєстрації користувача. User registration form.
   Route::get('/registration', [RegistrationController::class, 'create'])->name('registration');

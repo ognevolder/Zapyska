@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activity_logs', function (Blueprint $table) {
+        Schema::create('editors', function (Blueprint $table) {
             $table->id();
-            $table->string('event');
-            $table->string('data')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable()->default(null);
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activity_logs');
+        Schema::dropIfExists('editors');
     }
 };

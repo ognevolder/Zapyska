@@ -27,11 +27,11 @@ class RegistrationRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'email' => ['required','email','string','unique:admins,email'],
             'password' => ['required','string','min:8'],
-            'key' => ['required', 'string', function ($attribute, $value, $fail) {
-                $key = Key::where('key', $value->first());
+            'key' => ['required', function ($attribute, $value, $fail) {
+                $key = Key::where('key', $value)->first();
 
                 if (!$key) {
-                    return $fail('Такого ключа не існує.');
+                    return $fail('Невідомий ключ.');
                 }
 
                 if ($key->used) {
@@ -55,7 +55,7 @@ class RegistrationRequest extends FormRequest
             'email.unique' => 'Електронна пошта вже зареєстрована.',
             'password.required' => 'Вкажіть пароль.',
             'password.min' => 'Мінімальна довжина пароля 8 символів.',
-            'admin_key.required' => 'Вкажіть ключ доступу.',
+            'key.required' => 'Вкажіть ключ доступу.',
         ];
     }
 }

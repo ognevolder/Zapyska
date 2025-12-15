@@ -1,7 +1,10 @@
 <?php
 
+// Консольна команда для генерації ключа доступу до реєстрації.
+
 namespace App\Console\Commands;
 
+use App\Models\ActivityLog;
 use App\Models\Key;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -13,7 +16,7 @@ class GenerateAdminKey extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:key {--hours=1}';
+    protected $signature = 'admin:key {--hours=24}';
 
     /**
      * The console command description.
@@ -30,9 +33,16 @@ class GenerateAdminKey extends Command
         $key = bin2hex(random_bytes(32)); // Generate the 64-bit Key
         $expires = Carbon::now()->addHours((int) $this->option('hours')); // Add expiration time
 
+        // Додавання ключа в базу
         Key::create([
             'key' => $key,
             'expires_at' => $expires
+        ]);
+
+        // Реєстрація події
+        ActivityLog::create([
+            'event' => 'Генерація ключа доступу.',
+            'data' => $key
         ]);
 
         $this->info("Ключ створено:");

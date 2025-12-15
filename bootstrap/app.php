@@ -19,9 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'auth' => \App\Http\Middleware\Authenticate::class,
+            'guest' => \App\Http\Middleware\RedirectIfAuth::class
         ]);
 
         $middleware->group('web', [
+            \App\Http\Middleware\UseRoleSession::class,
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,

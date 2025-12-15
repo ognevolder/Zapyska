@@ -32,7 +32,7 @@ class RegistrationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Поле "Ім’я" обов’язкове.',
+            'name.required' => 'Поле обов’язкове.',
             'name.max' => 'Ім’я не може перевищувати 255 символів.',
 
             'email.required' => 'Вкажіть вашу електронну пошту.',

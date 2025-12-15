@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class Admin extends Authenticatable implements MustVerifyEmail
+class Editor extends Authenticatable implements MustVerifyEmail
 {
     protected $guard = 'admin';
 

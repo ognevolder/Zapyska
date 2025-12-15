@@ -43,7 +43,16 @@ return [
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admins'
+            'provider' => 'admins',
+            'session' => 'admin_session',
+            'cookie' => 'admin_cookie'
+        ],
+
+        'editor' => [
+            'driver' => 'session',
+            'provider' => 'editors',
+            'session' => 'editor_session',
+            'cookie' => 'editor_cookie'
         ]
     ],
 
@@ -73,6 +82,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class
+        ],
+
+        'editors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Editor::class
         ]
     ],
 
@@ -117,4 +131,30 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+
+    /**
+     * Мапа шляхів реєстрації для різних типів користувачів. Registration routes map.
+     */
+    'registration_routes' => [
+        'web' => 'registration',
+        'admin' => 'admin.registration'
+    ],
+
+    /**
+     * Мапа шляхів для авторизації користувачів різних ролей. Login routes map.
+     */
+    'login_routes' => [
+        'web' => 'auth', // Звичайний користувач
+        'admin' => 'admin.auth', // Адміністратор
+        'editor' => 'editor.auth' // Редактор
+    ],
+
+    /**
+     * Мапа шляхів профільної сторінки
+     */
+    'dashboard_routes' => [
+        'web' => 'profile',
+        'admin' => 'admin.profile',
+        'editor' => 'editor.profile'
+    ]
 ];
