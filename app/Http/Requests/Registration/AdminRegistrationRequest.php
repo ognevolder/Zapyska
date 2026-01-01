@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Registration;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class RegistrationRequest extends FormRequest
+class AdminRegistrationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // Якщо реєстрація відкрита для всіх — true
         return true;
     }
 
@@ -24,8 +24,12 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8']
+            'email'    => ['required', 'email', 'unique:admins,email'],
+            'password' => ['required', 'min:8'],
+            'key'      => ['required',
+                Rule::exists('keys', 'key')->where('used', false)->where(function ($q) {
+                    $q->whereNull('expires_at')->orWhere('expires_at', '>', now());
+                })]
         ];
     }
 
@@ -40,7 +44,10 @@ class RegistrationRequest extends FormRequest
             'email.unique' => 'Ця адреса вже зареєстрована.',
 
             'password.required' => 'Вкажіть пароль.',
-            'password.min' => 'Пароль має містити щонайменше 8 символів.'
+            'password.min' => 'Пароль має містити щонайменше 8 символів.',
+
+            'key.required' => 'Вкажіть ключ доступу.',
+            'key.exists' => 'Ключ не доступний.'
         ];
     }
 }

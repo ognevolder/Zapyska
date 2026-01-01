@@ -13,7 +13,7 @@ class DeleteUsedKeys extends Command
      *
      * @var string
      */
-    protected $signature = 'app:delete-used-keys';
+    protected $signature = 'key:delete';
 
     /**
      * The console command description.

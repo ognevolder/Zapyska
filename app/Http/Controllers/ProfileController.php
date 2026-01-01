@@ -11,9 +11,17 @@ class ProfileController
     /**
      * Profile-page View
      */
-    public function profile()
+    public function user()
     {
         return view('profile.profile');
+    }
+
+    /**
+     * Profile-page View
+     */
+    public function admin()
+    {
+        return view('admin.dashboard');
     }
 
     /**

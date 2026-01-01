@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('editors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable()->default(null);
-            $table->string('password');
+            $table->unsignedBigInteger('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

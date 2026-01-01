@@ -65,4 +65,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new PasswordResetLink($token));
     }
+
+    public function editor()
+    {
+        return $this->hasOne(Editor::class);
+    }
+
+    public function isEditor(): bool
+    {
+        return $this->editor()->exists();
+    }
 }

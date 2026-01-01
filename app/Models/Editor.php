@@ -7,23 +7,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class Editor extends Authenticatable implements MustVerifyEmail
 {
-    protected $guard = 'admin';
+    protected $fillable = ['user_id'];
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password'
-    ];
-
-    protected $hidden = [
-        'password'
-    ];
-
-    protected function casts(): array
+    public function user()
     {
-        return [
-            'password' => 'hashed',
-            'email_verified_at' => 'datetime'
-        ];
+        return $this->belongsTo(User::class);
     }
 }

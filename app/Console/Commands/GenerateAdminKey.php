@@ -42,7 +42,7 @@ class GenerateAdminKey extends Command
         // Реєстрація події
         ActivityLog::create([
             'event' => 'Генерація ключа доступу.',
-            'data' => $key
+            'data' => ['key' => $key]
         ]);
 
         $this->info("Ключ створено:");

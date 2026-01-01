@@ -11,19 +11,12 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    protected string $guard = 'web';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function setGuard(string $guard): self
-    {
-        $this->guard = $guard;
-        return $this;
     }
 
     /**
@@ -54,19 +47,21 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function authenticate($guard = 'web'): void
     {
-        $this->ensureIsNotRateLimited();
+        $this->ensureIsNotRateLimited($guard);
 
-        if (! Auth::guard($this->guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey(), 480);
+        if (! Auth::guard($guard)->attempt(
+            $this->only('email', 'password')
+        )) {
+            RateLimiter::hit($this->throttleKey($guard), 480);
 
             throw ValidationException::withMessages([
-                'login' => 'Вказані дані не співпадають.' . '<br>' . 'Залишилося спроб: ' . RateLimiter::remaining($this->throttleKey(), 5)
+                'login' => 'Вказані дані не співпадають.' . '<br>' . 'Залишилося спроб: ' . RateLimiter::remaining($this->throttleKey($guard), 5)
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+        RateLimiter::clear($this->throttleKey($guard));
     }
 
     /**
@@ -74,9 +69,9 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited(): void
+    public function ensureIsNotRateLimited(string $guard): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey($guard), 5)) {
             return;
         }
 
@@ -90,8 +85,8 @@ class LoginRequest extends FormRequest
     /**
      * Get the rate limiting throttle key for the request.
      */
-    public function throttleKey(): string
+    public function throttleKey($guard): string
     {
-        return Str::lower($this->guard.'|'.$this->string('email').'|'.$this->ip());
+        return Str::lower($guard. '|' . $this->string('email').'|'.$this->ip());
     }
 }

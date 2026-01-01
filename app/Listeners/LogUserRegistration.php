@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistration;
+use App\Events\Registration\UserRegistration;
 use App\Models\ActivityLog;
 
 class LogUserRegistration

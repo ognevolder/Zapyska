@@ -2,7 +2,7 @@
 
 // Подія (Реєстрація). Записується в журнал подій для контролю системи.
 
-namespace App\Events;
+namespace App\Events\Registration;
 
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;

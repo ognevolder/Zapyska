@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserLogin;
 use App\Events\UserLogout;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -12,21 +11,36 @@ use Illuminate\View\View;
 
 class SessionController
 {
+    protected $guard;
+
+    /**
+     * Встановлення guard.
+     *
+     * @return void
+     */
+    protected function guard()
+    {
+        return $this->guard = Auth::getDefaultDriver();
+    }
+
     public function create(): View
     {
-        return view('auth.login');
+        return view(
+            config('auth.login_views.' . $this->guard(), 'auth.login')
+        );
     }
 
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate('web');
+        $request->authenticate($this->guard());
 
         $request->session()->regenerate();
 
-        // Create an event
-        event(new UserLogin(Auth::user()));
+        // event(new UserLogin(Auth::guard($request->guard())->user()));
 
-        return redirect()->intended(route('profile', absolute: false));
+        return redirect()->intended(
+            route(config('auth.dashboard_routes.' . $this->guard()))
+        );
     }
 
     /**
@@ -34,12 +48,13 @@ class SessionController
      */
     public function destroy(Request $request): RedirectResponse
     {
-        event(new UserLogout(Auth::user()));
+        $guard = Auth::getDefaultDriver();
 
-        Auth::guard('web')->logout();
+        event(new UserLogout(Auth::guard($guard)->user()));
+
+        Auth::guard($guard)->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

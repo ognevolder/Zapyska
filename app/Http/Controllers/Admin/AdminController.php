@@ -12,15 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController
 {
-    /**
-     * Форма реєстрації адміністратора. Registration-form view.
-     *
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('admin.create');
-    }
+
 
     /**
      * Форма для авторизації адміністратора. Login-form view.
@@ -32,35 +24,7 @@ class AdminController
         return view('admin.show');
     }
 
-    /**
-     * Створення нового адміністратора в базі. Store a new admin.
-     *
-     * @param RegistrationRequest $request
-     * @return void
-     */
-    public function store(RegistrationRequest $request)
-    {
-        // Валідація
-        $attributes = $request->validated();
 
-        // Створення адміна.
-        $admin = Admin::create($attributes);
-
-        // Деактивація ключа.
-        $key = Key::where('key', $request->key)->first();
-        if ($key) {
-            $key->used = true;
-            $key->save();
-        }
-
-        // Подія (Адмін - Реєстрація).
-
-        // Авторизація.
-        Auth::guard('admin')->login($admin);
-
-        // Переадресація на Admin Dashboard.
-        return redirect()->intended(route('admin.profile', absolute: false));
-    }
 
     public function login(LoginRequest $request)
     {
