@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
@@ -78,7 +78,7 @@ class LoginRequest extends FormRequest
         event(new Lockout($this));
 
         throw ValidationException::withMessages([
-            'block' => 'Тимчасово заблоковано. Спробуйте ще раз через ' . RateLimiter::availableIn($this->throttleKey()) . ' секунд.'
+            'block' => 'Тимчасово заблоковано. Спробуйте ще раз через ' . RateLimiter::availableIn($this->throttleKey($guard)) . ' секунд.'
         ]);
     }
 

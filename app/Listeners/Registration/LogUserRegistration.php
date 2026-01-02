@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Registration;
 
 use App\Events\Registration\UserRegistration;
 use App\Models\ActivityLog;
@@ -22,7 +22,10 @@ class LogUserRegistration
     {
         ActivityLog::create([
             'event' => 'Реєстрація',
-            'user_id' => $event->user->id
+            'user_id' => $event->user->id,
+            'data' => [
+                'guard' => 'web'
+            ]
         ]);
     }
 }

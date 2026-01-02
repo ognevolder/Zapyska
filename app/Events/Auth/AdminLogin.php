@@ -2,25 +2,24 @@
 
 // Подія (Авторизація). Записується в журнал подій для контролю системи.
 
-namespace App\Events;
+namespace App\Events\Auth;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserLogin
+class AdminLogin
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct(public Admin $admin)
     {
-        $this->user = $user;
+        //
     }
 
     /**

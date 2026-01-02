@@ -9,11 +9,13 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Користувач [web].
+ */
+
+// Guest
 Route::middleware('guest:web')->group(function()
 {
-  /**
-   * Auth
-   */
   Route::get('/auth', [SessionController::class, 'create'])->name('auth');
   Route::post('/auth', [SessionController::class, 'store']);
 
@@ -25,13 +27,27 @@ Route::middleware('guest:web')->group(function()
 });
 
 
-// Log Out
-Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth:web');
+// Auth
+Route::middleware('auth:web')->group(function()
+{
+  // Вихід
+  Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth:web');
+});
 
 
-// Адміністратор. [Admin].
+/**
+ * Адміністратор [admin].
+ */
+
+//Guest
 Route::prefix('admin')->name('admin.')->middleware(['guard:admin', 'guest:admin'])->group(function () {
-  // Реєстрація адміністратора.
+  // Авторизація.
   Route::get('/auth', [SessionController::class, 'create'])->name('login');
   Route::post('/auth', [SessionController::class, 'store'])->middleware('throttle:2,1');
+});
+
+// Auth
+Route::prefix('admin')->name('admin.')->middleware(['guard:admin', 'auth:admin'])->group(function () {
+  // Вихід.
+  Route::post('/logout', [SessionController::class, 'destroy']);
 });

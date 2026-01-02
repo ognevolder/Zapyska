@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Registration;
 
 use App\Events\Registration\AdminRegistration;
 use App\Models\ActivityLog;
@@ -22,8 +22,10 @@ class LogAdminRegistration
     {
         ActivityLog::create([
             'event' => 'Адмін | Реєстрація',
-            'data' => ['key' => $event->key],
-            'user_id' => $event->admin->id
+            'user_id' => $event->admin->id,
+            'data' => [
+                'key' => $event->key
+            ],
         ]);
     }
 }

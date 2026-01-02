@@ -6,6 +6,9 @@
  * ----------------------------------------------------------
  * Виклик форми реєстрації відповідно до маршруту запиту.
  * Створення користувача або адміністратора в БД.
+ * Верифікація електронної пошти зареєстрованого користувача.
+ * Скидання паролю.
+ * Зміна паролю.
  */
 
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -16,12 +19,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registration\RegistrationController;
 
 
-// Звичайний користувач. [Web].
+/**
+ * Користувач [web].
+*/
+
+// Guest
 Route::middleware('guest:web')->group(function() {
   // Форма реєстрації користувача. User registration form.
   Route::get('/registration', [RegistrationController::class, 'create'])->name('registration');
   Route::post('/registration', [RegistrationController::class, 'user'])->middleware('throttle:4,1');
 });
+
+// Auth
 
 
 // Адміністратор. [Admin].

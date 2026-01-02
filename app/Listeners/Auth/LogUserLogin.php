@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\UserLogin;
+use App\Events\Auth\UserLogin;
 use App\Models\ActivityLog;
 
 
@@ -25,8 +25,7 @@ class LogUserLogin
             'event' => 'Авторизація',
             'user_id' => $event->user->id,
             'data' => [
-                'ip' => request()->ip(),
-                'user_agent' => request()->userAgent(),
+                'guard' => 'web'
             ]
         ]);
     }

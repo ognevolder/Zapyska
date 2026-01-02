@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserLogout;
-use App\Http\Requests\LoginRequest;
+use App\Events\Auth\AdminLogin;
+use App\Events\Auth\UserLogin;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,13 @@ class SessionController
 
         $request->session()->regenerate();
 
-        // event(new UserLogin(Auth::guard($request->guard())->user()));
+        $user = Auth::guard($this->guard())->user();
+
+        match ($this->guard())
+        {
+            'admin' => event(new AdminLogin($user)),
+            default => event(new UserLogin($user))
+        };
 
         return redirect()->intended(
             route(config('auth.dashboard_routes.' . $this->guard()))
@@ -48,12 +55,7 @@ class SessionController
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $guard = Auth::getDefaultDriver();
-
-        event(new UserLogout(Auth::guard($guard)->user()));
-
-        Auth::guard($guard)->logout();
-
+        Auth::guard($this->guard())->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

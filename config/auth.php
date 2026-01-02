@@ -132,7 +132,7 @@ return [
      */
     'login_views' => [
         'web' => 'auth.login',
-        'admin' => 'admin.show'
+        'admin' => 'auth.admin-login'
     ],
 
     /**
