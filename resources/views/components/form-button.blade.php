@@ -1,1 +1,2 @@
-<button {{ $attributes->merge(['class' => "cursor-pointer py-3 xl:py-4 px-5 xl:px-8 bg-darkgreen text-xl text-[#fff] font-display font-normal leading-none"])}}>{{$slot}}</button>
+@props(['type' => ''])
+<button type="{{ $type }}" {{ $attributes->merge(['class' => "cursor-pointer py-3 xl:py-4 px-5 xl:px-8 bg-darkgreen text-xl text-[#fff] font-display font-normal leading-none"])}}>{{$slot}}</button>

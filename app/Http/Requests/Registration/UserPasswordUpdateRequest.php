@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Registration;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordUpdateRequest extends FormRequest
+class UserPasswordUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class PasswordUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults()]
+            'current_password' => ['required', 'current_password:web'],
+            'password' => ['required', 'min:8']
         ];
     }
 
@@ -35,7 +35,8 @@ class PasswordUpdateRequest extends FormRequest
         'current_password.required' => 'Вкажіть поточний пароль.',
         'current_password.current_password' => 'Поточний пароль не відповідає вказаному.',
 
-        'password.required' => 'Вкажіть пароль.'
+        'password.required' => 'Вкажіть новий пароль.',
+        'password.min' => 'Мінімальна довжина 8 символів'
       ];
     }
 }

@@ -136,6 +136,14 @@ return [
     ],
 
     /**
+     * Password update
+     */
+    'password-update_views' => [
+        'web' => 'registration.password-edit',
+        'admin' => 'registration.admin-password-edit'
+    ],
+
+    /**
      * Мапа шляхів для авторизації користувачів різних ролей. Login routes map.
      */
     'login_routes' => [

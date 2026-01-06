@@ -12,6 +12,7 @@
       </svg>
       <a href="/posts/create" class="text-sm text-white font-display font-semibold uppercase">Написати</a>
     </div>
+    <a href="/password-update">Змінити пароль</a>
     <form action="/logout" method="POST">
       @csrf
       <button type="submit">Exit</button>
